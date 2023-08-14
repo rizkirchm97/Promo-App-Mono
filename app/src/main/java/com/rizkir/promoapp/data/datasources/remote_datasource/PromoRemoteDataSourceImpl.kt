@@ -25,7 +25,7 @@ class PromoRemoteDataSourceImpl @Inject constructor(
 
     override fun getPromoById(i: Int?): Flow<Resource<PromoDto>> = flow {
         if ( i == null) {
-            emit(Resource.Error("id not found"))
+            emit(Resource.Error("invalid id"))
         } else {
             val result = apiService.getAllPromo()
             try {

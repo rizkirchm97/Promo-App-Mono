@@ -73,7 +73,7 @@ fun HomeScreen(
                         uiState.data?.count()?.let { it1 ->
                             items(count = it1) { index ->
                                 val dataItem = uiState.data[index]
-                                hasPromoList(data = dataItem, modifier = Modifier.fillMaxWidth())
+                                hasPromoList(dataItem, Modifier.fillMaxWidth())
                             }
                         }
 

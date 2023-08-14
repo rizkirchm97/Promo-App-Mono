@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.rizkir.promoapp.common.Resource
 import com.rizkir.promoapp.domain.entities.PromoEntity
 import com.rizkir.promoapp.domain.usecases.GetPromoByIdUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -13,12 +14,13 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+@HiltViewModel
 class DetailPromoViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     useCase: GetPromoByIdUseCase
 ) : ViewModel() {
 
-    private val promoId = savedStateHandle.get<Int>("promoId") ?: 0
+    private val promoId: Int? = savedStateHandle.get<Int>("promoId")
 
 
     val uiState: StateFlow<DetailPromoUiState> = uiState(useCase, promoId)
@@ -29,7 +31,7 @@ class DetailPromoViewModel @Inject constructor(
             initialValue = DetailPromoUiState.Loading(isLoading = true)
         )
 
-    private fun uiState(useCase: GetPromoByIdUseCase, promoId: Int): Flow<DetailPromoUiState> = flow {
+    private fun uiState(useCase: GetPromoByIdUseCase, promoId: Int?): Flow<DetailPromoUiState> = flow {
         val result = useCase.invoke(promoId)
 
         result.collect { resource ->

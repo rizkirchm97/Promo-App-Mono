@@ -8,13 +8,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun HomeRoute(
-    viewModel: HomeViewModel,
+    viewModel: HomeViewModel = hiltViewModel(),
+    onPromoClick: (Int) -> Unit
 ) {
     val uiState: UiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     HomeScreen(
         uiState = uiState,
         onPromoClick = {
+            onPromoClick(it)
         }
     )
 

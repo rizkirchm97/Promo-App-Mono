@@ -114,6 +114,9 @@ dependencies {
     // Coil
     implementation(libs.coil)
 
+    // Accompanist
+    implementation(libs.accompanist.system.bar)
+
 
 }
 
